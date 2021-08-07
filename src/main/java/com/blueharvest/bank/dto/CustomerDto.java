@@ -25,8 +25,9 @@ public class CustomerDto {
     private String surName;
     @ApiModelProperty(name = "balance",required = true,dataType = "java.lang.Double")
     private Double balance;
-
+    @ApiModelProperty(name = "transactions",required = true,dataType = "java.util.List")
     private List<Transaction> transactions;
+    @ApiModelProperty(name = "childAccounts",required = true,dataType = "java.util.List")
     private List<SubAccount> childAccounts;
 
 }
