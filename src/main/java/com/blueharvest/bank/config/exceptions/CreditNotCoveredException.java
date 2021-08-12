@@ -5,9 +5,9 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @RequiredArgsConstructor
-public final class ResourceNotFoundException extends RuntimeException {
-
+@AllArgsConstructor
+public class CreditNotCoveredException extends  RuntimeException {
     private int code;
+
 }

@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -28,7 +29,18 @@ public class Transaction {
     @Column(name = "transaction_type",nullable = false)
     private TransactionType transactionType;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private SubAccount subAccountId;
+    @Column(name = "transaction_timeStamp",nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date transactionTimeStamp;
+    @Column(name="status")
+    private Boolean status;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "to")
+    private SubAccount to;
+
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "from")
+    private Customer from;
 
 }
