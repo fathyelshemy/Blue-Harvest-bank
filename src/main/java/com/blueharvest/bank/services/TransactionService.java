@@ -46,14 +46,13 @@ public class TransactionService {
 
         subAccountRepository.updateBalanceById(transaction.getSubAccount().getId(),childBalance);
         transaction.getSubAccount().setBalance(childBalance);
-
         Transaction savedTransaction=transactionRepository.save(transaction);
         return modelMapper.map(savedTransaction,TransactionDto.class);
     }
 
-    public List<TransactionDto> retrieveTransactions(long fromId){
+    public List<TransactionDto> getTransactionsByCustomerID(long customerID){
 
-        return transactionRepository.findAllByCustomer(fromId).stream()
+        return transactionRepository.findAllByCustomer_Id(customerID).stream()
                 .map(transaction -> new ModelMapper().map(transaction,TransactionDto.class))
                 .collect(Collectors.toList());
     }

@@ -1,5 +1,6 @@
 package com.blueharvest.bank.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -23,6 +24,7 @@ public class TransactionDto {
     @ApiModelProperty(name = "transactionType",required = true,dataType = "com.blueharvest.bank.dto.TransactionType")
     private TransactionType transactionType;
     @ApiModelProperty(name = "subAccount",required = true,dataType = "com.blueharvest.bank.dto.SubAccountDto")
+    @JsonIgnoreProperties({"customer"})
     private SubAccountDto subAccount;
     @ApiModelProperty(name = "customer",required = true,dataType = "com.blueharvest.bank.dto.CustomerDto")
     private CustomerDto customer;
