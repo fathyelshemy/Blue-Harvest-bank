@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 
 @Data
@@ -30,13 +29,5 @@ public class Customer {
 
     @Column(name = "balance")
     private double balance;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id")
-    private List<Transaction> transactions;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "child_id")
-    private List<SubAccount> childAccounts;
 
 }

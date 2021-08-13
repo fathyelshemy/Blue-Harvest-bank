@@ -12,5 +12,5 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
     @Modifying
     @Query("update Customer customer set customer.balance = :balance where customer.id= :id")
-    Customer updateAmountById(@Param("id") long id, @Param("balance") double balance);
+    int updateAmountById(@Param("id") long id, @Param("balance") double balance);
 }

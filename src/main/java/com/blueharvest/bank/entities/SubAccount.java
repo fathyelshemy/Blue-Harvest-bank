@@ -23,5 +23,9 @@ public class SubAccount {
     @Column(name = "balance")
     private double balance;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
 
 }

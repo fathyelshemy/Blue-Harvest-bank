@@ -1,19 +1,18 @@
 package com.blueharvest.bank.dto;
 
-import com.blueharvest.bank.entities.SubAccount;
-import com.blueharvest.bank.entities.Transaction;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CustomerDto {
 
     @EqualsAndHashCode.Include
@@ -25,9 +24,5 @@ public class CustomerDto {
     private String surName;
     @ApiModelProperty(name = "balance",required = true,dataType = "java.lang.Double")
     private Double balance;
-    @ApiModelProperty(name = "transactions",required = true,dataType = "java.util.List")
-    private List<Transaction> transactions;
-    @ApiModelProperty(name = "childAccounts",required = true,dataType = "java.util.List")
-    private List<SubAccount> childAccounts;
 
 }

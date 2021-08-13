@@ -27,6 +27,7 @@ public class Transaction {
     private double amount;
 
     @Column(name = "transaction_type",nullable = false)
+    @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 
     @Column(name = "transaction_timeStamp",nullable = false)
@@ -35,12 +36,12 @@ public class Transaction {
     @Column(name="status")
     private Boolean status;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "to")
-    private SubAccount to;
+    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @JoinColumn(name = "subaccount_id")
+    private SubAccount subAccount;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "from")
-    private Customer from;
+    @ManyToOne(cascade = CascadeType.MERGE ,fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
 }

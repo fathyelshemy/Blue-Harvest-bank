@@ -12,5 +12,5 @@ public interface SubAccountRepository extends CrudRepository<SubAccount,Long> {
 
     @Modifying
     @Query("UPDATE SubAccount subAccount SET subAccount.balance = :balance WHERE subAccount.id= :id")
-    SubAccount updateBalanceById(@Param("id") long id,@Param("balance") double balance);
+    int updateBalanceById(@Param("id") long id,@Param("balance") double balance);
 }

@@ -1,10 +1,8 @@
 package com.blueharvest.bank.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
@@ -13,6 +11,8 @@ import java.util.Date;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TransactionDto {
 
     @EqualsAndHashCode.Include
@@ -22,10 +22,10 @@ public class TransactionDto {
     private Double amount;
     @ApiModelProperty(name = "transactionType",required = true,dataType = "com.blueharvest.bank.dto.TransactionType")
     private TransactionType transactionType;
-    @ApiModelProperty(name = "to",required = true,dataType = "com.blueharvest.bank.dto.SubAccountDto")
-    private SubAccountDto to;
-    @ApiModelProperty(name = "to",required = true,dataType = "com.blueharvest.bank.dto.CustomerDto")
-    private CustomerDto from;
+    @ApiModelProperty(name = "subAccount",required = true,dataType = "com.blueharvest.bank.dto.SubAccountDto")
+    private SubAccountDto subAccount;
+    @ApiModelProperty(name = "customer",required = true,dataType = "com.blueharvest.bank.dto.CustomerDto")
+    private CustomerDto customer;
     @ApiModelProperty(name = "transactionTimeStamp",required = true,dataType = "java.util.Date")
     private Date transactionTimeStamp;
     @ApiModelProperty(name = "status",required = true,dataType = "java.lang.Boolean")
