@@ -25,6 +25,6 @@ public class CustomerService {
     public CustomerDto getCustomer(long id) {
         return customerRepository.findById(id)
                 .map(customer -> new ModelMapper().map(customer,CustomerDto.class))
-                .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(() -> new ResourceNotFoundException("Customer Not Found",404));
     }
 }

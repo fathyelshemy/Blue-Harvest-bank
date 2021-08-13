@@ -37,7 +37,7 @@ public class TransactionService {
         Transaction transaction= modelMapper.map(transactionDto,Transaction.class);
         Optional.ofNullable(transaction)
                 .filter(transaction1 -> transaction1.getCustomer().getBalance()>transaction1.getAmount())
-                .orElseThrow(CreditNotCoveredException::new);
+                .orElseThrow(() -> new CreditNotCoveredException("parent account doesn't have enough money",400));
         double parentBalance=calculateBalanceBasedOnTransactionType(TransactionType.WITHDRAWAL, transaction.getCustomer().getBalance(), transaction.getAmount());
         customerRepository.updateAmountById(transaction.getCustomer().getId(),parentBalance);
         transaction.getCustomer().setBalance(parentBalance);
