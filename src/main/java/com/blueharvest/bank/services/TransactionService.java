@@ -5,6 +5,7 @@ import com.blueharvest.bank.dto.CustomerDto;
 import com.blueharvest.bank.dto.SubAccountDto;
 import com.blueharvest.bank.dto.TransactionDto;
 import com.blueharvest.bank.dto.TransactionType;
+import com.blueharvest.bank.entities.SubAccount;
 import com.blueharvest.bank.entities.Transaction;
 import com.blueharvest.bank.repositories.CustomerRepository;
 import com.blueharvest.bank.repositories.SubAccountRepository;
@@ -39,13 +40,14 @@ public class TransactionService {
                 .filter(transaction1 -> transaction1.getCustomer().getBalance()>transaction1.getAmount()).map(transaction1 -> transaction1)
                 .orElseThrow(() -> new CreditNotCoveredException("parent account doesn't have enough money",400));
         double parentBalance=calculateBalanceBasedOnTransactionType(TransactionType.WITHDRAWAL, transaction.getCustomer().getBalance(), transaction.getAmount());
+
         customerRepository.updateAmountById(transaction.getCustomer().getId(),parentBalance);
         transaction.getCustomer().setBalance(parentBalance);
         transaction.getSubAccount().getCustomer().setBalance(parentBalance);
-        double childBalance= calculateBalanceBasedOnTransactionType(TransactionType.DEPOSIT, transaction.getSubAccount().getBalance(),transaction.getAmount());
 
-        subAccountRepository.updateBalanceById(transaction.getSubAccount().getId(),childBalance);
-        transaction.getSubAccount().setBalance(childBalance);
+        subAccountRepository.updateBalanceById(transaction.getSubAccount().getId(),transaction.getAmount());
+        Optional<Double> childBalance=Optional.of(subAccountRepository.findById(transaction.getSubAccount().getId()).map(SubAccount::getBalance).orElseGet( ()->0.0));
+        transaction.getSubAccount().setBalance(transaction.getAmount() + childBalance.get());
         Transaction savedTransaction=transactionRepository.save(transaction);
         return modelMapper.map(savedTransaction,TransactionDto.class);
     }
