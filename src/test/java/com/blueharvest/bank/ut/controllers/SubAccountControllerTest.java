@@ -1,6 +1,5 @@
 package com.blueharvest.bank.ut.controllers;
 
-import com.blueharvest.bank.controllers.CustomerController;
 import com.blueharvest.bank.controllers.SubAccountController;
 import com.blueharvest.bank.dto.RequestAccountDto;
 import com.blueharvest.bank.dto.SubAccountDto;
@@ -19,7 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
