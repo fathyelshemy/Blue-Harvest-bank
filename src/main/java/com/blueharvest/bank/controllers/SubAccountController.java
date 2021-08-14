@@ -1,6 +1,7 @@
 package com.blueharvest.bank.controllers;
 
 import com.blueharvest.bank.dto.RequestAccountDto;
+import com.blueharvest.bank.dto.SubAccountDto;
 import com.blueharvest.bank.services.SubAccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +23,7 @@ public class SubAccountController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE
             ,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addSubAccount(@RequestBody RequestAccountDto requestAccountDto) {
+    public ResponseEntity<SubAccountDto> addSubAccount(@RequestBody RequestAccountDto requestAccountDto) {
         return  new ResponseEntity<>(subAccountService.addSubAccount(requestAccountDto), HttpStatus.OK);
     }
 }
