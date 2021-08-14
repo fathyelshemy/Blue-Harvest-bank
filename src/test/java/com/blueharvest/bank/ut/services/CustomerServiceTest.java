@@ -1,4 +1,4 @@
-package com.blueharvest.bank.services.ut;
+package com.blueharvest.bank.ut.services;
 
 import com.blueharvest.bank.config.exceptions.ResourceNotFoundException;
 import com.blueharvest.bank.dto.CustomerDto;
