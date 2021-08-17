@@ -1,6 +1,7 @@
 package com.blueharvest.bank.filters;
 
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -16,15 +17,14 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Component
-@Log
+@Slf4j
 public class RequestLogFilter implements Filter  {
 
-    private static final Logger logger = LoggerFactory.getLogger("kibana-logger");
     private final String regex;
 
     public RequestLogFilter() {
         this.regex = Stream
-                .of(".*/v2/api-docs", ".*/swagger-resources", ".*/swagger-ui.html", ".*/webjars", ".*/bot-management/getCampaign")
+                .of(".*/v2/api-docs", ".*/swagger-resources", ".*/swagger-ui.html", ".*/webjars")
                 .reduce((str1, str2) -> String.format("%s|%s", str1, str2))
                 .map(str -> String.format("(%s).*", str))
                 .orElse("");
@@ -32,6 +32,7 @@ public class RequestLogFilter implements Filter  {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        // don't need to implement init method
 
     }
 
@@ -51,7 +52,7 @@ public class RequestLogFilter implements Filter  {
             /* request info */
             final String method = ((HttpServletRequest) request).getMethod();
             final String url = ((HttpServletRequest) request).getRequestURL().toString();
-            logger.info(String.format("REST, request, %s, %s", method, url));
+            log.info("REST, request, {}, {}", method, url);
 
             /* request headers */
             final List<String> requestHeaders = new LinkedList<>();
@@ -63,7 +64,7 @@ public class RequestLogFilter implements Filter  {
                     requestHeaders.add(String.format("%s: %s", headerName, headerValue));
                 }
             }
-            logger.info(String.format("REST, headers, %s", requestHeaders.toString()));
+            log.info("REST, headers, {}", requestHeaders.toString());
 
             /* request data */
             final String requestData = ((CustomHttpServletRequestWrapper) request).getBody().replaceAll("\n", "");
@@ -74,7 +75,7 @@ public class RequestLogFilter implements Filter  {
                 stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
                 stringBuilder.append("}");
             }
-            logger.info(String.format("REST, data, %s, %s", requestData, stringBuilder.toString()));
+            log.info("REST, data, {}, {}", requestData, stringBuilder.toString());
 
             /* response */
             try {
@@ -87,9 +88,9 @@ public class RequestLogFilter implements Filter  {
                 final String contentType = response.getContentType();
                 String responseData = ((CustomHttpServletResponseWrapper) response).getBody().replaceAll(removingWhitespacesRegex, "");
                 if (status < 400)
-                    logger.info(String.format("REST, response, %d, %s, %s", status, contentType, responseData));
+                    log.info("REST, response, {}, {}, {}", status, contentType, responseData);
                 else
-                    logger.error(String.format("REST, response, %d, %s, %s", status, contentType, responseData));
+                    log.error("REST, response, {}, {}, {}", status, contentType, responseData);
             }
         } else {
             chain.doFilter(request, response);
@@ -98,6 +99,6 @@ public class RequestLogFilter implements Filter  {
 
     @Override
     public void destroy() {
-
+    // don't need to implement destroy method
     }
 }

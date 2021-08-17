@@ -1,18 +1,22 @@
 package com.blueharvest.bank.filters;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class CustomHttpServletRequestWrapper extends HttpServletRequestWrapper {
     private final String body;
 
-    private Map<String, String> headerMap = new HashMap<String, String>();
+    private Map<String, String> headerMap = new HashMap<>();
 
     public CustomHttpServletRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
@@ -29,13 +33,14 @@ public class CustomHttpServletRequestWrapper extends HttpServletRequestWrapper {
                 }
             }
         } catch (IOException ex) {
+            log.error(ex.getLocalizedMessage());
             throw ex;
         } finally {
             if (bufferedReader != null) {
                 try {
                     bufferedReader.close();
                 } catch (IOException ex) {
-                    throw ex;
+                    log.error(ex.getLocalizedMessage());
                 }
             }
         }
@@ -79,7 +84,7 @@ public class CustomHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(body.getBytes(Charset.forName("UTF-8")));
+        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8));
         ServletInputStream servletInputStream = new ServletInputStream() {
             @Override
             public boolean isFinished() {
@@ -93,7 +98,7 @@ public class CustomHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
             @Override
             public void setReadListener(ReadListener listener) {
-
+                // no need to implement ReadListener
             }
 
             public int read() throws IOException {
@@ -105,7 +110,7 @@ public class CustomHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public BufferedReader getReader() throws IOException {
-        return new BufferedReader(new InputStreamReader(this.getInputStream(),"UTF8"));
+        return new BufferedReader(new InputStreamReader(this.getInputStream(), StandardCharsets.UTF_8));
     }
 
     public String getBody() {

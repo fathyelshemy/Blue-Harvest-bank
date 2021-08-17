@@ -1,5 +1,7 @@
 package com.blueharvest.bank.filters;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -8,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+@Slf4j
 public class CustomHttpServletResponseWrapper extends HttpServletResponseWrapper {
 
     private ServletOutputStream outputStream;
@@ -60,7 +63,7 @@ public class CustomHttpServletResponseWrapper extends HttpServletResponseWrapper
             try {
                 return new String(copier.getCopy(), this.getCharacterEncoding());
             } catch (UnsupportedEncodingException e) {
-
+                log.error(e.getLocalizedMessage());
             }
         }
         return "";
