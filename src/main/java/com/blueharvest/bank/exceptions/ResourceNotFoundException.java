@@ -1,4 +1,4 @@
-package com.blueharvest.bank.config.exceptions;
+package com.blueharvest.bank.exceptions;
 
 import lombok.*;
 

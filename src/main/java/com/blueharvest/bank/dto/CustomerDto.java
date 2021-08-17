@@ -1,6 +1,7 @@
 package com.blueharvest.bank.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@ApiModel(description = "Class representing a Customer (parent of sub-accounts)")
 public class CustomerDto {
 
     @EqualsAndHashCode.Include

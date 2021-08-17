@@ -1,7 +1,7 @@
 package com.blueharvest.bank.controllers.advice;
 
-import com.blueharvest.bank.config.exceptions.CreditNotCoveredException;
-import com.blueharvest.bank.config.exceptions.ResourceNotFoundException;
+import com.blueharvest.bank.exceptions.CreditNotCoveredException;
+import com.blueharvest.bank.exceptions.ResourceNotFoundException;
 import com.blueharvest.bank.dto.ResponseErrorDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

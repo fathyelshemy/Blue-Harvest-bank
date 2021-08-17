@@ -2,6 +2,7 @@ package com.blueharvest.bank.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@ApiModel(description = "Class representing transaction between customer to subaccount")
 public class TransactionDto {
 
     @EqualsAndHashCode.Include

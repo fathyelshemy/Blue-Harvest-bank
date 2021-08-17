@@ -1,6 +1,6 @@
 package com.blueharvest.bank.services;
 
-import com.blueharvest.bank.config.exceptions.CreditNotCoveredException;
+import com.blueharvest.bank.exceptions.CreditNotCoveredException;
 import com.blueharvest.bank.dto.CustomerDto;
 import com.blueharvest.bank.dto.SubAccountDto;
 import com.blueharvest.bank.dto.TransactionDto;

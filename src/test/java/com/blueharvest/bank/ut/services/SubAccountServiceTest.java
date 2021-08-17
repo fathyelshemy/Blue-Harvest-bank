@@ -1,6 +1,6 @@
 package com.blueharvest.bank.ut.services;
 
-import com.blueharvest.bank.config.exceptions.ResourceNotFoundException;
+import com.blueharvest.bank.exceptions.ResourceNotFoundException;
 import com.blueharvest.bank.dto.*;
 import com.blueharvest.bank.services.CustomerService;
 import com.blueharvest.bank.services.SubAccountService;
@@ -12,11 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Date;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

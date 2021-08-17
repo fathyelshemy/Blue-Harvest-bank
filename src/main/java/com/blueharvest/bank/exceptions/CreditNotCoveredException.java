@@ -1,11 +1,10 @@
-package com.blueharvest.bank.config.exceptions;
+package com.blueharvest.bank.exceptions;
 
 import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @NoArgsConstructor
-
 public class CreditNotCoveredException extends  RuntimeException {
     private int code;
 

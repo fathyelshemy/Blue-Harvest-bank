@@ -1,6 +1,6 @@
 package com.blueharvest.bank.services;
 
-import com.blueharvest.bank.config.exceptions.ResourceNotFoundException;
+import com.blueharvest.bank.exceptions.ResourceNotFoundException;
 import com.blueharvest.bank.dto.CustomerDto;
 import com.blueharvest.bank.entities.Customer;
 import com.blueharvest.bank.repositories.CustomerRepository;
